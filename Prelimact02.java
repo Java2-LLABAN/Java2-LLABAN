@@ -1,54 +1,37 @@
 import java.io.*;
 
-public class Prelimact02{
+public class MidtermAct03{
 	public static void main(String[] args){
 	try {
 		BufferedReader in = new BufferedReader(new FileReader("phonebook.txt"));
-		int data=0,colon=0;
-		String sdata="",fname="",lname="",cp="";
-		boolean hasFound=false;
+		int ascii = 0, space = 0;
+		String data = "", fname = "", lname = "", cp = "";
+		boolean match = false;
 
-		while ((data=in.read())!=-1){
-			String s=String.valueOf((char)data);
-			sdata=sdata.concat(s);
-
-			if (data=='\n'){
-				sdata="";
-				colon=0;
+		while ((ascii=in.read())!=-1){
+			String s=String.valueOf((char)ascii);
+			data+=String.valueOf((char)ascii);
+			if (ascii=='\n'){
+				data="";
+				space=0;
 			}
-			if (data==':'){
-				colon++;
+			if (ascii==' '){
+				space++;
 			}
-			if (hasFound==true&&data !=':'){
-				if (colon==1) fname=fname.concat(String.valueOf((char)data));
-				if (colon==2) lname=lname.concat(String.valueOf((char)data));
-				if (colon==3) cp=cp.concat(String.valueOf((char)data));
+			if (data.equals("1001-11")){
+				System.out.println("We've found the record!");
+				match = true;
 			}
-			if (hasFound==true&&data == '\n')hasFound=false;
+			if (match==true&&ascii != ' '){
+				if (space==1)fname += String.valueOf ((char)ascii);
+				if (space==2)lname += String.valueOf ((char)ascii);
+				if (space==3)cp += String.valueOf ((char)ascii);
+			}if (match==true&&ascii=='\n')match=false;
 		}
-		in.close();
-
 		System.out.println("Firstname:"+fname);
 		System.out.println("Lastname:"+lname);
 		System.out.println("CP#:"+cp);
-		/*String data = "";
-		while ((data=in.readLine())!=null){
-			if(data.toString().equals("1001-11")){
-				System.out.println("We've found the record!");
-				data=in.read();
-				System.out.println("Firstname:"+data.toString());
-				data=in.read();
-				System.out.println("Lastname:"+data.toString());
-				data=in.read();
-				System.out.println("CP#"+data.toString());
-				//data=in.read();
-			}
-		System.out.println(data.toString());
-	}
-
-
-
-	in.close();*/
+		in.close();
 
 	}catch(IOException e) {
 		System.out.println("error");
